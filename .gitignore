@@ -7,3 +7,5 @@
 *.xlsx
 *.pdf
 .DS_Store
+**/.idea/
+**/__pycache__/
