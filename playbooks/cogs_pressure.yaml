@@ -1,0 +1,9 @@
+id: PB09
+title: COGS Pressure Decomposition
+applies_if: 'True'
+rationale: Separate material, labor, overhead effects (if columns exist).
+steps:
+- Break COGS into material/labor/overhead components.
+- Benchmark vs prior quarter and plan.
+- Propose supplier, yield, or process actions.
+expected_outcome: Concrete levers for COGS reduction.

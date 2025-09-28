@@ -1,0 +1,9 @@
+id: PB12
+title: Inventory Rightsize
+applies_if: 'True'
+rationale: Working capital relief via right-size inventory.
+steps:
+- Classify SKUs ABC; compute days of inventory vs target.
+- Reduce overstock SKUs; expedite slow movers.
+- Align buys with demand forecast accuracy.
+expected_outcome: Lower working capital, fewer write-downs.

@@ -1,0 +1,9 @@
+id: PB05
+title: Utilization Uplift & Cost Absorption
+applies_if: summary.avg_utilization is not None and summary.avg_utilization < 0.68
+rationale: Low utilization hurts fixed cost absorption.
+steps:
+- Map fixed vs variable costs by line/site.
+- Simulate +10% load to estimate margin recapture.
+- Recommend load shift or temporary cost control.
+expected_outcome: Improved utilization and margin absorption.

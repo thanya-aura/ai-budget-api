@@ -1,0 +1,9 @@
+id: PB02
+title: SG&A Trim (Targeted)
+applies_if: summary.avg_margin is not None and summary.avg_margin < 0.22
+rationale: Margin pressure indicates overhead contribution to gap.
+steps:
+- Benchmark SG&A % by department vs last 6 months.
+- Flag top 3 departments with steepest SG&A delta vs plan.
+- Propose 90-day containment plan with owner and savings target.
+expected_outcome: 2–4 pp margin improvement plan.

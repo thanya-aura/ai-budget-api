@@ -1,0 +1,9 @@
+id: PB01
+title: FX Hedge Sizing
+applies_if: summary.variance_pct_of_plan >= 0.10 and summary.total_planned > 0
+rationale: Large unfavorable variance with FX exposure likely present.
+steps:
+- Compute variance with FX neutral (FX=1.0) vs actual.
+- Quantify FX-attributable portion of the gap by driver.
+- Run ±5% FX sensitivity and size hedge to cover 50–80% of FX-driven gap.
+expected_outcome: Hedge recommendation and sensitivity table.

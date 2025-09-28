@@ -1,0 +1,9 @@
+id: PB11
+title: Opex Control 30/60/90
+applies_if: summary.variance_pct_of_plan >= 0.06
+rationale: Structured timeline ensures durable savings.
+steps:
+- '30d: freeze non-critical spend; implement approvals.'
+- '60d: renegotiate key contracts; optimize headcount mix.'
+- '90d: automation pipeline; permanent policy changes.'
+expected_outcome: Run-rate opex reduction with governance.

@@ -1,0 +1,9 @@
+id: PB07
+title: 'Cash Focus: High Variance Drivers'
+applies_if: summary.variance_pct_of_plan >= 0.08
+rationale: Concentrate actions on the largest cash impacts.
+steps:
+- Rank drivers by absolute variance.
+- Focus on top 5 explaining ~80% of total gap.
+- Define cash-impact actions and weekly check-ins.
+expected_outcome: Faster gap reduction on major drivers.

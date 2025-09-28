@@ -1,0 +1,10 @@
+id: PB03
+title: Price / Mix / Volume Decomposition
+applies_if: summary.total_planned > 0
+rationale: Explain variance into price/mix/volume effects (if columns exist).
+steps:
+- Create baseline using planned price and mix.
+- Isolate price effect (actual price vs baseline price) if unit data present.
+- Isolate mix effect by product/category share changes.
+- Isolate volume effect by unit quantity delta.
+expected_outcome: Attribution waterfall chart.

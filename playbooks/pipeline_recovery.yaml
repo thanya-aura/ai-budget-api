@@ -1,0 +1,9 @@
+id: PB04
+title: Sales Pipeline Recovery
+applies_if: summary.avg_growth is not None and summary.avg_growth <= 0
+rationale: Negative/flat growth requires conversion uplift.
+steps:
+- Compute forecast bias by month (forecast - actual).
+- Identify regions/products with conversion drop.
+- 'Propose pipeline actions: promo, pricing, channel, account coverage.'
+expected_outcome: Recovery plan for next 1–2 quarters.

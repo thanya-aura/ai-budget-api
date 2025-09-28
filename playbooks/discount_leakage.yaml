@@ -1,0 +1,9 @@
+id: PB08
+title: Discount Leakage Check
+applies_if: 'True'
+rationale: Common but hidden margin drain through unmanaged discounts.
+steps:
+- Compare net price vs list/standard across segments.
+- Flag outliers with >2 std dev discount rate.
+- Create approval gate for exceptional discounts.
+expected_outcome: Reduced leakage, improved realized price.

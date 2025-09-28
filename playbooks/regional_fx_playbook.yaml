@@ -1,0 +1,9 @@
+id: PB10
+title: Regional FX Playbook
+applies_if: summary.variance_pct_of_plan >= 0.05
+rationale: FX sensitivity differs by region/product.
+steps:
+- Group by Region/Product and compute FX sensitivity (±5%).
+- Prioritize regions with highest FX elasticity.
+- Draft hedge cadence and monitoring KPIs.
+expected_outcome: Region-prioritized FX plan.

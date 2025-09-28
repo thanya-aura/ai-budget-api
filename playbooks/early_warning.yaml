@@ -1,0 +1,9 @@
+id: PB06
+title: Early Warning Trend Scan
+applies_if: summary.total_planned > 0
+rationale: Prevent month-end surprises with rolling trend checks.
+steps:
+- Compute rolling 3-month trend for Planned vs Actual.
+- Flag crossings where Actual exceeds Plan by >8%.
+- Notify owners and set lightweight alerts.
+expected_outcome: Alert feed and prioritized watchlist.
