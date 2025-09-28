@@ -9,3 +9,7 @@
 *.pdf
 .DS_Store
 **/.idea/
+ai-*/
+ai_revenue_api/
+budget_plus/
+thanyaaura-gateway/
