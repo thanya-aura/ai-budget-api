@@ -1,35 +1,11 @@
-# --- Python ---
+﻿__pycache__/
 **/__pycache__/
-**/*.py[cod]
+*.pyc
 *.pyo
-
-# Virtual envs (ทุกระดับ)
-.venv/
-venv/
-**/.venv/
-**/venv/
-
-# Env & logs
-.env
-.env.*
 *.log
-
-# pytest / notebooks cache
-.pytest_cache/
-.ipynb_checkpoints/
-
-# --- IDE / OS ---
+.venv/
+.env
+*.xlsx
+*.pdf
 .DS_Store
-Thumbs.db
-desktop.ini
-.vscode/
-.idea/
-
-# --- Build / runtime artifacts ---
-reports/
-outputs/
-artifacts/
-
-# ถ้ามี sample/template ที่อยากเก็บ ให้ยืนยันไม่ ignore
-!budget_plus/sample_input.xlsx
-!template/**
+**/.idea/
