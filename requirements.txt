@@ -1,7 +1,10 @@
 fastapi
-uvicorn
+uvicorn[standard]
 pandas
-openpyxl
-python-multipart
-matplotlib
-fpdf
+openpyxl          # อ่าน/เขียน Excel
+XlsxWriter        # จัด format เซลล์ตอน export
+matplotlib        # สร้างกราฟสำหรับ PDF
+reportlab         # สร้าง PDF
+Pillow            # (PIL) ใช้เปิดภาพจาก buffer
+httpx             # ใช้โดย TestClient/requests ภายในบางส่วน
+python-multipart  # รองรับ file upload ใน FastAPI
