@@ -1,6 +1,8 @@
 
 from fpdf import FPDF
 from io import BytesIO
+import matplotlib
+matplotlib.use("Agg")   # ต้องมาก่อน pyplot
 import matplotlib.pyplot as plt
 import pandas as pd
 from .number_format import format_currency
