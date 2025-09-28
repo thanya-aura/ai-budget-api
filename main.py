@@ -16,6 +16,10 @@ from .utils.variance_utils import calculate_variance, summarize_variance
 app = FastAPI(title="Budget Plus Agent", version="1.0.0")
 logging.basicConfig(level=logging.INFO)
 
+# ====== Settings / Limits ======
+MAX_UPLOAD_BYTES = 20 * 1024 * 1024  # 20 MB
+ALLOWED_EXTS = (".xlsx", ".xls")     # รองรับ Excel เท่านั้น
+
 # ====== ส่วนช่วยเตรียม DataFrame ให้อยู่ในรูปที่ระบบต้องการ ======
 
 # ชุดคอลัมน์ขั้นต่ำที่ "ต้องมีจริง" เพื่อคำนวณ/สร้างรายงานได้
@@ -91,6 +95,45 @@ def _ensure_required_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def _validate_and_read_excel(upload: UploadFile) -> pd.DataFrame:
+    """ตรวจชนิดไฟล์/ขนาด แล้วอ่าน Excel เป็น DataFrame ด้วย openpyxl"""
+    # 1) เช็กนามสกุลไฟล์
+    filename = (upload.filename or "").lower()
+    if not filename.endswith(ALLOWED_EXTS):
+        raise HTTPException(
+            status_code=400,
+            detail=f"กรุณาอัปโหลดไฟล์ Excel นามสกุล {ALLOWED_EXTS}",
+        )
+
+    # 2) อ่านเนื้อหา + เช็กขนาด
+    try:
+        content = upload.file.read()
+    except Exception as e:
+        # กรณีบาง client ใช้ .file ไม่ได้ ให้ fallback ไปใช้ await file.read()
+        # แต่ endpoint ของเราประกาศ async อยู่แล้ว—สำหรับปลอดภัยลองอ่านซ้ำแบบ async หากจำเป็น
+        # อย่างไรก็ดี Render/UVicorn ส่วนใหญ่รับได้จาก .file.read() ตรง ๆ
+        raise HTTPException(status_code=400, detail=f"อ่านไฟล์ไม่สำเร็จ: {e}")
+
+    if not content:
+        raise HTTPException(status_code=400, detail="ไฟล์ว่างเปล่า")
+
+    if len(content) > MAX_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=413,  # Payload Too Large
+            detail=f"ไฟล์ใหญ่เกินกำหนด ({len(content)/1024/1024:.2f} MB) - จำกัด {MAX_UPLOAD_BYTES/1024/1024:.0f} MB",
+        )
+
+    # 3) แปลงเป็น DataFrame
+    try:
+        df = pd.read_excel(BytesIO(content), engine="openpyxl")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"อ่านไฟล์ Excel ไม่สำเร็จ: {e}")
+
+    if df is None or df.empty:
+        raise HTTPException(status_code=400, detail="ไม่พบข้อมูลในไฟล์ (empty DataFrame)")
+    return df
+
+
 # ====== Routes ======
 
 @app.get("/", response_class=HTMLResponse)
@@ -98,14 +141,15 @@ async def root():
     return "<h3>✅ Budget Plus Agent is running. POST to /analyze, /download-report, or /download-pdf</h3>"
 
 
+@app.get("/health")
+async def health():
+    return {"ok": True, "version": "1.0.0"}
+
+
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
     # อ่านไฟล์
-    try:
-        contents = await file.read()
-        df = pd.read_excel(BytesIO(contents))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"อ่านไฟล์ Excel ไม่สำเร็จ: {e}")
+    df = _validate_and_read_excel(file)
 
     # เตรียมคอลัมน์ให้อยู่ในรูปที่ระบบต้องการ
     try:
@@ -138,11 +182,7 @@ async def analyze(file: UploadFile = File(...)):
 @app.post("/download-report")
 async def download_report(file: UploadFile = File(...)):
     # อ่านไฟล์
-    try:
-        contents = await file.read()
-        df = pd.read_excel(BytesIO(contents))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"อ่านไฟล์ Excel ไม่สำเร็จ: {e}")
+    df = _validate_and_read_excel(file)
 
     # เตรียมคอลัมน์ + คำนวณ
     try:
@@ -187,11 +227,7 @@ async def download_report(file: UploadFile = File(...)):
 @app.post("/download-pdf")
 async def download_pdf(file: UploadFile = File(...)):
     # อ่านไฟล์
-    try:
-        contents = await file.read()
-        df = pd.read_excel(BytesIO(contents))
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"อ่านไฟล์ Excel ไม่สำเร็จ: {e}")
+    df = _validate_and_read_excel(file)
 
     # เตรียมคอลัมน์ + คำนวณ
     try:
