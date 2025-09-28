@@ -1,29 +1,11 @@
-﻿__pycache__/
-**/__pycache__/
+﻿# python
+__pycache__/
 *.pyc
-*.pyo
-*.log
 .venv/
-.env
+# tools/output
+_recovery_logs/
 *.xlsx
 *.pdf
-.DS_Store
-**/.idea/
-ai-*/
-ai_revenue_api/
-budget_plus/
-thanyaaura-gateway/
-capex_*/
-cost_structure_*/
-decision_*/
-enterprise_cf_ai_agent/
-forecast_*/
-fx_*/
-margin_*/
-project_cf_ai_agent/
-report_*/
-revenue_*/
-singel_cf_ai_agent/
-vaiance_plus/
-variance_*/
-Sample/
+# IDE
+.idea/
+.vscode/
